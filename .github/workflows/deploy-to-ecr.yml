@@ -1,4 +1,4 @@
-name: Build and Push Docker Image to AWS ECR
+name: Build and Push Nginx Docker Image to AWS ECR
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-and-push:
-    name: Build and Push Image
+    name: Build and Push Nginx Image
     runs-on: ubuntu-latest
 
     steps:
@@ -26,39 +26,10 @@ jobs:
     - name: Login to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build and push Nginx image to Amazon ECR
       run: |
         ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb  # ECR 주소 하드 코딩
-        docker build -t soldeskweb .
-        docker tag soldeskweb:latest $ECR_ADDRESS:latest
+        docker build -t nginx-web-server .
+        docker tag nginx-web-server:latest $ECR_ADDRESS:latest
         docker push $ECR_ADDRESS:latest
-
-    - name: Checkout source code
-      uses: actions/checkout@v2
-
-    - name: Check Node version
-      run: node -v
-
-    - name: Build front-end
-      run: |
-        npm install
-        npm run build
-
-    - name: Get image tag (version)
-      id: image
-      run: |
-        VERSION=$(echo ${{ github.sha }} | cut -c1-8)
-        echo VERSION=$VERSION
-        echo "::set-output name=version::$VERSION"
-
-    - name: Build, tag, and push image to Amazon ECR (Front-end)
-      id: image-info
-      run: |
-        ECR_REGISTRY=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb  # ECR 주소 하드 코딩
-        ECR_REPOSITORY=demo-frontend
-        IMAGE_TAG=${{ steps.image.outputs.version }}
-        echo "::set-output name=ecr_repository::$ECR_REPOSITORY"
-        echo "::set-output name=image_tag::$IMAGE_TAG"
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
