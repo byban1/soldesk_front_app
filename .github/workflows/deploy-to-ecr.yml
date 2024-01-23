@@ -1,4 +1,4 @@
-name: Build and Push Nginx Docker Image to AWS ECR
+name: Build and Push Docker Image to AWS ECR
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-and-push:
-    name: Build and Push Nginx Image
+    name: Build and Push Image
     runs-on: ubuntu-latest
 
     steps:
@@ -26,10 +26,11 @@ jobs:
     - name: Login to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build and push Nginx image to Amazon ECR
+    - name: Build, tag, and push image to Amazon ECR
       run: |
-        ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb  # ECR 주소 하드 코딩
-        docker build -t nginx-web-server .
-        docker tag nginx-web-server:latest $ECR_ADDRESS:latest
-        docker push $ECR_ADDRESS:latest
+        ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb
+        COMMIT_HASH=${{ github.sha }}  # GitHub 커밋의 해시 값
+        docker build -t soldeskweb .
+        docker tag soldeskweb:$COMMIT_HASH $ECR_ADDRESS:$COMMIT_HASH
+        docker push $ECR_ADDRESS:$COMMIT_HASH
 
