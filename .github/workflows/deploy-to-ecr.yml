@@ -12,6 +12,11 @@ jobs:
     name: Build and Push Image
     runs-on: ubuntu-latest
 
+    env:
+      ECR_ADDRESS: 656714748400.dkr.ecr.ap-northeast-2.amazonaws.com
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -31,17 +36,6 @@ jobs:
         docker build -t soldeskweb .
         docker tag soldeskweb:latest $ECR_ADDRESS/soldeskweb:latest
         docker push $ECR_ADDRESS/soldeskweb:latest
-
-    - name: Create Environment File
-      run: |
-        echo "ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com" > env
-      shell: bash
-
-    - name: Load Environment Variables
-      run: |
-        source env
-        echo "ECR_ADDRESS=$ECR_ADDRESS"
-      shell: bash
 
     - name: Checkout source code
       uses: actions/checkout@v2
@@ -64,7 +58,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR (Front-end)
       id: image-info
       env:
-        ECR_REGISTRY: ${{ env.ECR_ADDRESS }}
+        ECR_REGISTRY: $ECR_ADDRESS
         ECR_REPOSITORY: demo-frontend
         IMAGE_TAG: ${{ steps.image.outputs.version }}
       run: |
