@@ -31,6 +31,5 @@ jobs:
         ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb
         SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-9)
         docker build -t soldeskweb:$SHORT_SHA .
-        docker tag soldeskweb:$SHORT_SHA $ECR_ADDRESS:$SHORT_SHA
         docker push $ECR_ADDRESS:$SHORT_SHA
 
