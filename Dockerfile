@@ -1,7 +1,7 @@
 # Nginx 기반의 Dockerfile
 FROM nginx:latest
 
-# 포트 80
+# 포트 80 노출
 EXPOSE 80
 
 # Nginx 실행
