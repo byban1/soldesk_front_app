@@ -12,11 +12,6 @@ jobs:
     name: Build and Push Image
     runs-on: ubuntu-latest
 
-    env:
-      ECR_ADDRESS: 656714748400.dkr.ecr.ap-northeast-2.amazonaws.com
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -33,9 +28,10 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
+        ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb  # ECR 주소 하드 코딩
         docker build -t soldeskweb .
-        docker tag soldeskweb:latest $ECR_ADDRESS/soldeskweb:latest
-        docker push $ECR_ADDRESS/soldeskweb:latest
+        docker tag soldeskweb:latest $ECR_ADDRESS:latest
+        docker push $ECR_ADDRESS:latest
 
     - name: Checkout source code
       uses: actions/checkout@v2
