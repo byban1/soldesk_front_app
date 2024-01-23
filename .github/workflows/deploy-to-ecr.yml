@@ -29,8 +29,8 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       run: |
         ECR_ADDRESS=656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb
-        COMMIT_HASH=${{ github.sha }}  # GitHub 커밋의 해시 값
-        docker build -t soldeskweb .
+        COMMIT_HASH=${{ github.sha }}
+        docker build -t soldeskweb:$COMMIT_HASH .
         docker tag soldeskweb:$COMMIT_HASH $ECR_ADDRESS:$COMMIT_HASH
         docker push $ECR_ADDRESS:$COMMIT_HASH
 
