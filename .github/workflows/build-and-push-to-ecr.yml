@@ -20,7 +20,6 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Login to Amazon ECR
-      id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push image to Amazon ECR
@@ -29,12 +28,4 @@ jobs:
         docker build -t 656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb:$IMAGE_TAG .
         docker push 656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb:$IMAGE_TAG
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
-
-    - name: Trigger soldesk_Ansible workflow
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.REPO_ACCESS_TOKEN }}
-        repository: byban1/soldesk_Ansible
-        event-type: update-image
-        client-payload: '{"tag": "${{ env.IMAGE_TAG }}"}'
 
