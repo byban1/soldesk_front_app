@@ -24,7 +24,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        IMAGE_TAG=$(date -u +%Y%m%d%H%M)
+        IMAGE_TAG=$(TZ="Asia/Seoul" date +%Y%m%d%H%M)
         docker build -t 656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb:$IMAGE_TAG .
         docker push 656714748400.dkr.ecr.ap-northeast-2.amazonaws.com/soldeskweb:$IMAGE_TAG
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
