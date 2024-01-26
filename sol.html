@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>종합쇼핑몰</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: auto; }
+        header { background: #f8f8f8; padding: 10px 0; }
+        header h1 { text-align: center; }
+        nav { text-align: center; margin-top: 20px; }
+        nav a { margin: 0 10px; text-decoration: none; color: #333; }
+        .content { margin-top: 20px; }
+        .product { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .product img { width: 100px; height: auto; }
+        .product-details { display: flex; align-items: center; }
+        .search-box { text-align: center; margin: 20px 0; }
+        .search-box input[type="text"] { width: 200px; padding: 5px; }
+        .search-box input[type="submit"] { padding: 5px 15px; }
+        .login-form { text-align: center; margin-top: 20px; }
+        .login-form input { margin: 5px; padding: 5px; }
+    </style>
+    <script>
+        function searchProducts() {
+            // 여기에 검색 로직을 구현할 수 있지만, 이 예제에서는 구현하지 않습니다.
+            alert("검색 기능은 현재 작동하지 않습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>종합쇼핑몰</h1>
+            <nav>
+                <a href="#">홈</a>
+                <a href="#">상품</a>
+                <a href="#">장바구니</a>
+                <a href="#">로그인</a>
+            </nav>
+        </header>
+        <div class="search-box">
+            <input type="text" placeholder="상품 검색...">
+            <input type="submit" value="검색" onclick="searchProducts()">
+        </div>
+        <div class="login-form">
+            <input type="text" placeholder="아이디">
+            <input type="password" placeholder="비밀번호">
+            <input type="submit" value="로그인">
+        </div>
+        <div class="content">
+            <!-- 상품 목록 예시 -->
+            <div class="product">
+                <div class="product-details">
+                    <img src="example-product.jpg" alt="상품 이미지">
+                    <div>
+                        <h3>상품 이름</h3>
+                        <p>상품 설명...</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 여러 상품을 표시하려면 이 구조를 반복하세요. -->
+        </div>
+    </div>
+</body>
+</html>
+
