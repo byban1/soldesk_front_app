@@ -3,10 +3,14 @@ FROM nginx:latest
 # 포트 80을 외부에 노출합니다.
 EXPOSE 80
 
+# Nginx 설정 파일에 UTF-8 charset을 추가합니다.
+RUN echo 'http { charset utf-8; }' > /etc/nginx/conf.d/default.conf
+
 # 솔데스크 쇼핑몰 홈페이지 HTML 파일을 생성합니다.
 RUN echo '<!DOCTYPE html>' > /usr/share/nginx/html/index.html \
     && echo '<html>' >> /usr/share/nginx/html/index.html \
     && echo '<head>' >> /usr/share/nginx/html/index.html \
+    && echo '<meta charset="UTF-8">' >> /usr/share/nginx/html/index.html \
     && echo '<title>솔데스크 쇼핑몰</title>' >> /usr/share/nginx/html/index.html \
     && echo '</head>' >> /usr/share/nginx/html/index.html \
     && echo '<body style="text-align: center;">' >> /usr/share/nginx/html/index.html \
