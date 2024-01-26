@@ -1,8 +1,13 @@
-# Use the official Nginx base image
-FROM nginx:latest
+# Nginx 이미지를 기반으로 설정
+FROM nginx:alpine
 
-# Copy the HTML file to the default Nginx public folder
-COPY sol.html /usr/share/nginx/html
+# Nginx의 기본 문서 디렉토리에 HTML 및 CSS 파일 복사
+COPY index.html /usr/share/nginx/html/
+COPY styles.css /usr/share/nginx/html/css/
 
-# Expose port 80
+# 80 포트를 외부에 노출
 EXPOSE 80
+
+# Nginx 시작
+CMD ["nginx", "-g", "daemon off;"]
+
