@@ -1,6 +1,5 @@
 FROM nginx:latest
 
-# 포트 80을 외부에 노출합니다.
 EXPOSE 80
 
 # 기본 Nginx 설정에 UTF-8 charset을 추가합니다.
